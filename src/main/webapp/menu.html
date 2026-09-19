@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Café - Premium Menu</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/custom/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --dark-bg: #121212;
+            --card-bg: #1e1e1e;
+            --gold-premium: #d4af37;
+            --text-muted: #a0a0a0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--dark-bg);
+            color: #ffffff;
+            padding-bottom: 90px; /* For floating cart */
+        }
+
+        /* Hero / Header Section */
+        .cafe-header {
+            background: linear-gradient(180deg, rgba(0,0,0,0.8) 0%, rgba(18,18,18,1) 100%), 
+                        url('https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?q=80&w=600') no-repeat center center;
+            background-size: cover;
+            padding: 40px 20px 20px 20px;
+            text-align: center;
+            border-bottom: 2px solid var(--gold-premium);
+        }
+
+        .table-badge {
+            background-color: var(--gold-premium);
+            color: #000;
+            font-weight: 600;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            display: inline-block;
+        }
+
+        /* Category Scroll */
+        .category-container {
+            overflow-x: auto;
+            white-space: nowrap;
+            padding: 15px 0;
+            scrollbar-width: none; /* Hide scrollbar for Firefox */
+        }
+        .category-container::-webkit-scrollbar {
+            display: none; /* Hide scrollbar for Chrome/Safari */
+        }
+
+        .category-pill {
+            display: inline-block;
+            background-color: var(--card-bg);
+            color: #fff;
+            padding: 8px 20px;
+            margin-right: 10px;
+            border-radius: 25px;
+            text-decoration: none;
+            border: 1px solid #333;
+            transition: all 0.3s ease;
+        }
+
+        .category-pill.active, .category-pill:hover {
+            background-color: var(--gold-premium);
+            color: #000;
+            font-weight: 500;
+            border-color: var(--gold-premium);
+        }
+
+        /* Premium Food Card */
+        .food-card {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            border: 1px solid #2a2a2a;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-bottom: 20px;
+        }
+
+        .food-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.1);
+        }
+
+        .food-img-wrapper {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .food-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .food-card:hover .food-img {
+            transform: scale(1.08);
+        }
+
+        .food-price {
+            color: var(--gold-premium);
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .btn-add-cart {
+            background-color: transparent;
+            color: var(--gold-premium);
+            border: 1px solid var(--gold-premium);
+            border-radius: 8px;
+            padding: 5px 15px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-add-cart:hover {
+            background-color: var(--gold-premium);
+            color: #000;
+        }
+
+        /* Floating Cart Bar */
+        .floating-cart {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 500px;
+            background-color: rgba(214, 175, 55, 0.95);
+            color: #000;
+            border-radius: 30px;
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            text-decoration: none;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <div class="cafe-header">
+        <h1 class="fw-bold text-uppercase mb-1" style="letter-spacing: 2px;">The Smart Café</h1>
+        <p class="text-muted mb-2">AI-Powered Premium Experience</p>
+        <span class="table-badge"><i class="fa-solid fa-chair me-1"></i> TABLE 05</span>
+    </div>
+
+    <div class="container mt-3">
+        <!-- Search Bar -->
+        <div class="input-group mb-2" style="background-color: var(--card-bg); border-radius: 25px; border: 1px solid #333; overflow: hidden;">
+            <span class="input-group-text bg-transparent border-0 text-muted"><i class="fa-solid fa-magnifying-glass"></i></span>
+            <input type="text" class="form-control bg-transparent border-0 text-white shadow-none" placeholder="Search your favorite food...">
+        </div>
+
+        <!-- Horizontal Categories -->
+        <div class="category-container">
+            <a href="#" class="category-pill active">All Items</a>
+            <a href="#" class="category-pill">☕ Coffee</a>
+            <a href="#" class="category-pill">🍰 Desserts</a>
+            <a href="#" class="category-pill">🍔 Mains</a>
+            <a href="#" class="category-pill">🥤 Mocktails</a>
+        </div>
+
+        <!-- Food Grid -->
+        <div class="row mt-3">
+            
+            <!-- Item 1 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="food-card">
+                    <div class="food-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1541167760496-1628856ab772?q=80&w=500" class="food-img" alt="Iced Latte">
+                    </div>
+                    <div class="p-3">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <h5 class="fw-semibold mb-1">Spanish Iced Latte</h5>
+                            <span class="badge bg-success text-white style="font-size: 0.7rem;">Best Seller</span>
+                        </div>
+                        <p class="text-muted small mb-3">Premium espresso mixed with condensed milk and chilled fresh milk.</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="food-price">LKR 950.00</span>
+                            <button class="btn-add-cart"><i class="fa-solid fa-plus me-1"></i> Add</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 2 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="food-card">
+                    <div class="food-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1606313564200-e75d5e30476c?q=80&w=500" class="food-img" alt="Chocolate Fudge">
+                    </div>
+                    <div class="p-3">
+                        <h5 class="fw-semibold mb-1">Belgium Chocolate Fudge</h5>
+                        <p class="text-muted small mb-3">Rich, moist chocolate cake layered with premium Belgian dark chocolate ganache.</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="food-price">LKR 780.00</span>
+                            <button class="btn-add-cart"><i class="fa-solid fa-plus me-1"></i> Add</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Floating View Cart Bar -->
+    <a href="#" class="floating-cart">
+        <div>
+            <i class="fa-solid fa-bag-shopping me-2"></i>
+            <span>2 Items Added</span>
+        </div>
+        <div>
+            <span>View Cart <i class="fa-solid fa-arrow-right ms-1"></i></span>
+        </div>
+    </a>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
